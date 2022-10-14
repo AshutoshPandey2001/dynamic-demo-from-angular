@@ -1,0 +1,104 @@
+<!-- <p *ngFor="let item of data1">
+    {{item.name}}
+    {{item.pandey}}
+    {{item.dateLeave}}
+
+</p> -->
+<!-- <iframe id="iframe" [src]="defurl" frameborder="0" style="width: 100vw; height:100vh"></iframe> -->
+<div>
+  <h1>
+    {{FormData.title}}
+  </h1>
+</div>
+
+<form>
+  <div class="row">
+    <div [ngSwitch]="item.type" *ngFor="let item of FormData[0].fields"
+      [ngClass]="item.layoutGridColumnSpan ?'col-lg-'+item.layoutGridColumnSpan:'col-lg-12'">
+
+      <div class="form-group " *ngSwitchCase=" 'text'">
+
+        <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
+
+        <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}"
+          required="{{item.isRequired}}">
+      </div>
+      <div class="form-group" *ngSwitchCase=" 'select'">
+
+        <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
+
+        <select class="form-control" required="{{item.isRequired}}">
+          <option *ngFor="let opt of item.choices" [value]="opt.value">{{opt.text}}</option>
+        </select>
+      </div>
+
+      <div class="form-group " *ngSwitchCase=" 'number'">
+
+        <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
+
+        <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}"
+          required="{{item.isRequired}}">
+      </div>
+      <div class="form-check" *ngSwitchCase=" 'radio'">
+
+        <label style="margin-left: -20px;">{{item.label}}</label><strong class="text-danger"
+          *ngIf="item.isRequired">*</strong>
+
+        <div *ngFor="let radio of item.choices">
+
+          <label class="form-check-label">
+            <input type="{{item.type}}" class="form-check-input" [value]="radio.value" name="radiobutton"
+              required="{{item.isRequired}}" (change)="onChangeradion(radio.value)">{{radio.text}}
+          </label>
+        </div>
+
+      </div>
+
+
+      <div class="form-check" *ngSwitchCase=" 'checkbox'">
+
+        <label style="margin-left: -20px;">{{item.label}}</label><strong class="text-danger"
+          *ngIf="item.isRequired">*</strong>
+
+        <div *ngFor="let check of item.choices">
+          <label class="form-check-label">
+            <input type="{{item.type}}" class="form-check-input" [value]="check.value"
+              required="{{item.isRequired}}">{{check.text}}</label>
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">{{FormData[0].button.text}}</button>
+
+  </div>
+</form>
+
+<!-- <form>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" placeholder="Enter email" id="email">
+      </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+          </div>
+        </div>
+  </div>
+</form> -->
