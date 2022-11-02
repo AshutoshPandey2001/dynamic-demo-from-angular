@@ -9,6 +9,7 @@ import {
   SafeUrl,
   SafeResourceUrl,
 } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +17,9 @@ import {
 })
 export class AppComponent {
   title = 'angular-App';
-
-  constructor(private sanitizer: DomSanitizer) {}
-  ngOnInt() {
+  constructor(private sanitizer: DomSanitizer ) {
   }
+  ngOnInt() {
+  } 
 }
+

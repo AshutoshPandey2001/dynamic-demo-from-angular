@@ -1,0 +1,11 @@
+<!-- <p>all-form works!</p> -->
+<h1>List Of All Form Present In Gravity From</h1>
+<div class="row">
+    <div class="card  cardstyle"  *ngFor="let item of allForm" >
+      <div class="card-header">{{item.title}} {{item.id}}</div>
+      <!-- <div class="card-body">{{item.id}}</div> -->
+      <div class="card-footer"><button class="btn btn-outline-warning"  (click)="viewForm(item.id)">View From</button>
+        <button class="btn btn-outline-danger"  (click)="deleteForm(item.id)">Delete From</button>
+      </div>
+    </div>
+  </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-employee',
@@ -8,380 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee.component.scss'],
 })
 export class EmployeeComponent implements OnInit {
-  jsonFrom: any = {
-    '0': {
-      title: 'Demo All Fields',
-      description: 'Form',
-      labelPlacement: 'top_label',
-      descriptionPlacement: 'below',
-      button: {
-        type: 'text',
-        text: 'Submit',
-        imageUrl: '',
-        width: 'auto',
-        location: 'bottom',
-        layoutGridColumnSpan: 12,
-      },
-      fields: [
-        {
-          type: 'text',
-          id: 1,
-          formId: 7,
-          label: 'Name',
-          adminLabel: '',
-          isRequired: true,
-          size: 'large',
-          errorMessage: '',
-          visibility: 'visible',
-          inputs: null,
-          description: '',
-          allowsPrepopulate: false,
-          inputMask: false,
-          inputMaskValue: '',
-          inputMaskIsCustom: false,
-          maxLength: '',
-          inputType: '',
-          labelPlacement: '',
-          descriptionPlacement: '',
-          subLabelPlacement: '',
-          placeholder: 'Enter Your Name',
-          cssClass: '',
-          inputName: '',
-          noDuplicates: false,
-          defaultValue: '',
-          enableAutocomplete: false,
-          autocompleteAttribute: '',
-          choices: '',
-          conditionalLogic: '',
-          productField: '',
-          layoutGridColumnSpan: '',
-          enablePasswordInput: '',
-          enableEnhancedUI: 0,
-          layoutGroupId: '9458c27f',
-          multipleFiles: false,
-          maxFiles: '',
-          calculationFormula: '',
-          calculationRounding: '',
-          enableCalculation: '',
-          disableQuantity: false,
-          displayAllCategories: false,
-          useRichTextEditor: false,
-          errors: [],
-          fields: '',
-          displayOnly: '',
-        },
-        {
-          type: 'select',
-          id: 3,
-          formId: 7,
-          label: 'Country',
-          adminLabel: '',
-          isRequired: true,
-          size: 'large',
-          errorMessage: '',
-          visibility: 'visible',
-          inputs: null,
-          choices: [
-            {
-              text: 'India',
-              value: 'India',
-              isSelected: false,
-              price: '',
-            },
-            {
-              text: 'USA',
-              value: 'USA',
-              isSelected: false,
-              price: '',
-            },
-            {
-              text: 'Cannada',
-              value: 'Canada',
-              isSelected: false,
-              price: '',
-            },
-          ],
-          description: '',
-          allowsPrepopulate: false,
-          inputMask: false,
-          inputMaskValue: '',
-          inputMaskIsCustom: false,
-          maxLength: '',
-          inputType: '',
-          labelPlacement: '',
-          descriptionPlacement: '',
-          subLabelPlacement: '',
-          placeholder: '',
-          cssClass: '',
-          inputName: '',
-          noDuplicates: false,
-          defaultValue: '',
-          enableAutocomplete: false,
-          autocompleteAttribute: '',
-          conditionalLogic: '',
-          productField: '',
-          layoutGridColumnSpan: '',
-          enablePrice: '',
-          enableEnhancedUI: 0,
-          layoutGroupId: '989f44a4',
-          multipleFiles: false,
-          maxFiles: '',
-          calculationFormula: '',
-          calculationRounding: '',
-          enableCalculation: '',
-          disableQuantity: false,
-          displayAllCategories: false,
-          useRichTextEditor: false,
-          errors: [],
-          enableChoiceValue: true,
-          fields: '',
-          displayOnly: '',
-        },
-        {
-          type: 'number',
-          id: 4,
-          formId: 7,
-          label: 'Mobile Number',
-          adminLabel: '',
-          isRequired: true,
-          size: 'large',
-          errorMessage: '',
-          visibility: 'visible',
-          inputs: null,
-          numberFormat: 'decimal_dot',
-          description: '',
-          allowsPrepopulate: false,
-          inputMask: false,
-          inputMaskValue: '',
-          inputMaskIsCustom: false,
-          maxLength: '',
-          inputType: '',
-          labelPlacement: '',
-          descriptionPlacement: '',
-          subLabelPlacement: '',
-          placeholder: '',
-          cssClass: '',
-          inputName: '',
-          noDuplicates: false,
-          defaultValue: '',
-          enableAutocomplete: false,
-          autocompleteAttribute: '',
-          choices: '',
-          conditionalLogic: '',
-          enableCalculation: false,
-          rangeMin: '',
-          rangeMax: '',
-          calculationFormula: '',
-          productField: '',
-          layoutGridColumnSpan: '',
-          enableEnhancedUI: 0,
-          layoutGroupId: 'bfa88645',
-          multipleFiles: false,
-          maxFiles: '',
-          calculationRounding: '',
-          disableQuantity: false,
-          displayAllCategories: false,
-          useRichTextEditor: false,
-          errors: [],
-          fields: '',
-          displayOnly: '',
-        },
-        {
-          type: 'checkbox',
-          id: 5,
-          formId: 7,
-          label: 'Hoby',
-          adminLabel: '',
-          isRequired: true,
-          size: 'large',
-          errorMessage: '',
-          visibility: 'visible',
-          choices: [
-            {
-              text: 'Playing FootBal',
-              value: 'Playing FootBal',
-              isSelected: false,
-              price: '',
-            },
-            {
-              text: 'Music',
-              value: 'Music',
-              isSelected: false,
-              price: '',
-            },
-            {
-              text: 'Online Gaming',
-              value: 'Online Gaming',
-              isSelected: false,
-              price: '',
-            },
-          ],
-          inputs: [
-            {
-              id: '5.1',
-              label: 'Playing FootBal',
-              name: '',
-            },
-            {
-              id: '5.2',
-              label: 'Music',
-              name: '',
-            },
-            {
-              id: '5.3',
-              label: 'Online Gaming',
-              name: '',
-            },
-          ],
-          description: '',
-          allowsPrepopulate: false,
-          inputMask: false,
-          inputMaskValue: '',
-          inputMaskIsCustom: false,
-          maxLength: '',
-          inputType: '',
-          labelPlacement: '',
-          descriptionPlacement: '',
-          subLabelPlacement: '',
-          placeholder: '',
-          cssClass: '',
-          inputName: '',
-          noDuplicates: false,
-          defaultValue: '',
-          enableAutocomplete: false,
-          autocompleteAttribute: '',
-          conditionalLogic: '',
-          productField: '',
-          layoutGridColumnSpan: '',
-          enableSelectAll: false,
-          enablePrice: '',
-          enableEnhancedUI: 0,
-          layoutGroupId: 'ca792cdb',
-          multipleFiles: false,
-          maxFiles: '',
-          calculationFormula: '',
-          calculationRounding: '',
-          enableCalculation: '',
-          disableQuantity: false,
-          displayAllCategories: false,
-          useRichTextEditor: false,
-          errors: [],
-          checkboxLabel: '',
-          enableChoiceValue: true,
-          fields: '',
-          displayOnly: '',
-        },
-        {
-          type: 'radio',
-          id: 6,
-          formId: 7,
-          label: 'Gender',
-          adminLabel: '',
-          isRequired: true,
-          size: 'large',
-          errorMessage: '',
-          visibility: 'visible',
-          validateState: true,
-          inputs: null,
-          choices: [
-            {
-              text: 'Male',
-              value: 'Male',
-              isSelected: false,
-              price: '',
-            },
-            {
-              text: 'Female',
-              value: 'Female',
-              isSelected: false,
-              price: '',
-            },
-            {
-              text: 'Other',
-              value: 'Other',
-              isSelected: false,
-              price: '',
-            },
-          ],
-          description: '',
-          allowsPrepopulate: false,
-          inputMask: false,
-          inputMaskValue: '',
-          inputMaskIsCustom: false,
-          maxLength: '',
-          inputType: '',
-          labelPlacement: '',
-          descriptionPlacement: '',
-          subLabelPlacement: '',
-          placeholder: '',
-          cssClass: '',
-          inputName: '',
-          noDuplicates: false,
-          defaultValue: '',
-          enableAutocomplete: false,
-          autocompleteAttribute: '',
-          conditionalLogic: '',
-          productField: '',
-          layoutGridColumnSpan: '',
-          enableOtherChoice: '',
-          enablePrice: '',
-          enableEnhancedUI: 0,
-          layoutGroupId: '226be625',
-          multipleFiles: false,
-          maxFiles: '',
-          calculationFormula: '',
-          calculationRounding: '',
-          enableCalculation: '',
-          disableQuantity: false,
-          displayAllCategories: false,
-          useRichTextEditor: false,
-          errors: [],
-          enableChoiceValue: true,
-          fields: '',
-          displayOnly: '',
-        },
-      ],
-      version: '2.6.7',
-      id: 7,
-      markupVersion: 2,
-      nextFieldId: 7,
-      useCurrentUserAsAuthor: true,
-      postContentTemplateEnabled: false,
-      postTitleTemplateEnabled: false,
-      postTitleTemplate: '',
-      postContentTemplate: '',
-      lastPageButton: null,
-      pagination: null,
-      firstPageCssClass: null,
-      confirmations: [
-        {
-          id: '6343ba97754bd',
-          name: 'Default Confirmation',
-          isDefault: true,
-          type: 'message',
-          message:
-            'Thanks for contacting us! We will get in touch with you shortly.',
-          url: '',
-          pageId: '',
-          queryString: '',
-        },
-      ],
-      notifications: [
-        {
-          id: '6343ba97752a0',
-          isActive: true,
-          to: '{admin_email}',
-          name: 'Admin Notification',
-          event: 'form_submission',
-          toType: 'email',
-          subject: 'New submission from {form_title}',
-          message: '{all_fields}',
-        },
-      ],
-    },
-    version: '2.6.7',
-  };
-  
+  jsonForm: any;  
   leaveForm: FormGroup;
   leaverequest: any = [];
   grouptext: any = {
@@ -390,31 +19,69 @@ export class EmployeeComponent implements OnInit {
   };
   selctValue: any;
   rules: any = [];
-
-  constructor(private FormBuilder: FormBuilder, private Route: Router) {
+  formId:any;
+constructor(private FormBuilder: FormBuilder,     private route: ActivatedRoute, private Route: Router,
+   private httpclient:HttpClient , private ngxService: NgxUiLoaderService)  {
     this.leaveForm = this.FormBuilder.group({
       nameEmployee: [''],
       purposeLeave: [''],
       dateLeave: [''],
     });
   }
+baseurl="https://tstageserver.com/aniruddh/wp-json/gf/v2/forms/"
+auth:any={
+  consumer_key:'ck_5cae7c87d75b18cf62d07179e44f906969fd9f30',
+  consumer_secret:'cs_6a2d4ae5ff8896f5277f0894a4f2e0990b31fb19'
 
-  ngOnInit(): void {
-    this.jsonFrom[0].fields.forEach((res: any) => {
-      this.rules = res.conditionalLogic.rules;
-      console.log('rules', this.rules);
-      console.log('resss', res.conditionalLogic.rules);
-    });
+};
+
+    ngOnInit() {
+   this.route.queryParams.subscribe((params:any) =>{
+      console.log( 'idd', params.fromID)
+      this.formId =params.fromID
+      console.log(this.formId)
+    } ); // output: 
+   this.getoneFrom();
+this.ngxService.stop()
+    // this.jsonForm.fields.forEach((res: any) => {
+    //   this.rules = res.conditionalLogic.rules;
+    //   console.log('rules', this.rules);
+    //   console.log('resss', res.conditionalLogic.rules);
+    // });
   }
+
+  getoneFrom(){
+this.httpclient.get(this.baseurl + this.formId,{ params:this.auth}).subscribe((res)=>{
+console.log('http res',res)
+this.jsonForm = res;
+console.log('jsonForm' , this.jsonForm)
+})
+  }
+
+  backButton(){
+    this.Route.navigate(['/allFrom'])
+  }
+
+
+
   onChangeradion(selectValue: any) {
     this.selctValue = selectValue;
-    console.log('selectValue', this.selctValue);
+    this.jsonForm.fields[0].Name = selectValue.value
+
+    console.log('selectValue', this.jsonForm.fields[0]);
   }
 
-  async leaveSub() {
-    console.log(this.leaveForm.value);
-    await this.leaverequest.push(this.leaveForm.value);
-    console.log('leaverequest', this.leaverequest);
-    this.Route.navigate(['/hr'], { queryParams: this.grouptext });
+  formSubmit(form:any){
+    console.log( 'submit form', form)
+    this.jsonForm.fields[0].Name = form.value.Name
+    console.log( 'submit form',this.jsonForm.fields[0] )
+
   }
-}
+
+//   async leaveSub() {
+//     console.log(this.leaveForm.value);
+//     await this.leaverequest.push(this.leaveForm.value);
+//     console.log('leaverequest', this.leaverequest);
+//     this.Route.navigate(['/hr'], { queryParams: this.grouptext });
+//   }
+ }

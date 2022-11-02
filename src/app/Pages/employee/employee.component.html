@@ -1,12 +1,17 @@
+
+<div style="margin-bottom: 25px;"><button class="btn btn-danger" (click)="backButton()">Back</button></div>
+
+
+
 <div>
   <h1>
-    {{jsonFrom[0].title}}
+    {{jsonForm?.title ? jsonForm?.title:''}}
   </h1>
 </div>
 
-<form>
-  <div class="row">
-    <ng-container [ngSwitch]="item.type" *ngFor="let item of jsonFrom[0].fields">
+<form #form="ngForm"  (ngSubmit)="formSubmit(form)" >
+  <div class="row" *ngIf="jsonForm && jsonForm.fields?.length">
+    <ng-container [ngSwitch]="item.type" *ngFor="let item of jsonForm.fields">
       <div [ngClass]="item.layoutGridColumnSpan ?'col-lg-'+item.layoutGridColumnSpan:'col-lg-12'">
 <!-------------   Text Type -------------------->
         <span *ngIf="item.conditionalLogic">
@@ -14,8 +19,8 @@
             <ng-container *ngIf="conditionLogic.value == selctValue">
               <div class="form-group" *ngSwitchCase="'text'" style="margin-top: 10px;">
                 <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
-                <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}"
-                  required="{{item.isRequired}}" >
+                <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}" 
+                  required="{{item.isRequired}}" name="{{item.label}}" ngModel  (change)="onChangeradion($event)">
               </div>
             </ng-container>
           </ng-container>
@@ -23,8 +28,8 @@
         <span *ngIf="!item.conditionalLogic">
           <div class="form-group" *ngSwitchCase="'text'">
             <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
-            <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}"
-              required="{{item.isRequired}}" (change)="onChangeradion($event.target)">
+            <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}" name="{{item.inputMaskValue}}"
+              required="{{item.isRequired}}" (change)="onChangeradion($event.target)" name="{{item.label}}" ngModel>
           </div>
         </span>
 <!-------------   Select Type -------------------->
@@ -35,7 +40,7 @@
           <div class="form-group" *ngSwitchCase="'select'">
             <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
   
-            <select class="form-control" required="{{item.isRequired}}">
+            <select class="form-control" required="{{item.isRequired}}" name="{{item.label}}" ngModel>
               <option *ngFor="let opt of item.choices" [value]="opt.value">{{opt.text}}</option>
             </select>
           </div>
@@ -47,7 +52,7 @@
           <div class="form-group" *ngSwitchCase="'select'">
             <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
   
-            <select class="form-control" required="{{item.isRequired}}">
+            <select class="form-control" required="{{item.isRequired}}" name="{{item.label}}" ngModel>
               <option *ngFor="let opt of item.choices" [value]="opt.value">{{opt.text}}</option>
             </select>
           </div>
@@ -60,7 +65,7 @@
           <div class="form-group " *ngSwitchCase=" 'number'">
                 <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
                 <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}"
-                  required="{{item.isRequired}}">
+                  required="{{item.isRequired}}" name="{{item.label}}" ngModel >
               </div>
             </ng-container>
           </ng-container>
@@ -72,7 +77,7 @@
             <label>{{item.label}}</label><strong class="text-danger" *ngIf="item.isRequired">*</strong>
 
             <input type="{{item.type}}" class="form-control" placeholder="{{item.placeholder}}"
-              required="{{item.isRequired}}">
+              required="{{item.isRequired}}" name="{{item.label}}" ngModel >
           </div>
         </span>
 <!-------------   Radio Type -------------------->
@@ -85,8 +90,8 @@
               *ngIf="item.isRequired">*</strong>
             <div *ngFor="let radio of item.choices">
               <label class="form-check-label">
-                <input type="{{item.type}}" class="form-check-input" [value]="radio.value" name="radiobutton"
-                  required="{{item.isRequired}}" (change)="onChangeradion(radio.value)">{{radio.text}}
+                <input type="{{item.type}}" class="form-check-input" [value]="radio.value" name="radiobutton" 
+                  required="{{item.isRequired}}" (change)="onChangeradion(radio.value)" name="{{item.label}}" ngModel>{{radio.text}}
               </label>
             </div>
   
@@ -101,8 +106,8 @@
               *ngIf="item.isRequired">*</strong>
             <div *ngFor="let radio of item.choices">
               <label class="form-check-label">
-                <input type="{{item.type}}" class="form-check-input" [value]="radio.value" name="radiobutton"
-                  required="{{item.isRequired}}" (change)="onChangeradion(radio.value)">{{radio.text}}
+                <input type="{{item.type}}" class="form-check-input" [value]="radio.value" name="{{item.label}}"
+                  required="{{item.isRequired}}"   ngModel>{{radio.text}}
               </label>
             </div>
   
@@ -111,15 +116,15 @@
 <!-------------   Checkbox Type -------------------->
 
         <span *ngIf="item.conditionalLogic">
-          <ng-container *ngFor="let conditionLogic of item.conditionalLogic.rules">
+          <ng-container *ngFor="let conditionLogic of item.conditionalLogic.rules"> 
             <ng-container *ngIf="conditionLogic.value == selctValue">
               <div class="form-check" *ngSwitchCase=" 'checkbox'">
                  <label style="margin-left: -20px;">{{item.label}}</label><strong class="text-danger"
                     *ngIf="item.isRequired">*</strong>      
                       <div *ngFor="let check of item.choices">
                         <label class="form-check-label">
-                            <input type="{{item.type}}" class="form-check-input" [value]="check.value"
-                               required="{{item.isRequired}}">{{check.text}}</label>
+                            <input type="{{item.type}}" class="form-check-input" [value]="check.value" 
+                               required="{{item.isRequired}}" name="{{item.label}}" ngModel>{{check.text}}</label>
                          </div>
               </div>
             </ng-container>
@@ -134,8 +139,8 @@
       
       <div *ngFor="let check of item.choices">
       <label class="form-check-label">
-        <input type="{{item.type}}" class="form-check-input" [value]="check.value"
-          required="{{item.isRequired}}">{{check.text}}</label>
+        <input type="{{item.type}}" class="form-check-input" [value]="check.value" 
+          required="{{item.isRequired}}" name="{{item.label}}" ngModel>{{check.text}}</label>
     </div>
 
 
@@ -145,7 +150,7 @@
     </ng-container>
   </div>
   <div style="margin-top: 10px;">
-    <button type="submit" class="btn btn-primary">{{jsonFrom[0].button.text}}</button>
+    <button type="submit" class="btn btn-primary" >{{jsonForm?.button.text}}</button>
   </div>
 </form>
 
