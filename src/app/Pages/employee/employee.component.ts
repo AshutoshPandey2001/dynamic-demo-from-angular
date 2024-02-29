@@ -10,6 +10,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
   styleUrls: ['./employee.component.scss'],
 })
 export class EmployeeComponent implements OnInit {
+  hello:string='india'
   jsonForm: any;  
   leaveForm: FormGroup;
   leaverequest: any = [];
@@ -66,15 +67,22 @@ console.log('jsonForm' , this.jsonForm)
 
   onChangeradion(selectValue: any) {
     this.selctValue = selectValue;
-    this.jsonForm.fields[0].Name = selectValue.value
+    // this.jsonForm.fields[0].Name = selectValue.value
 
-    console.log('selectValue', this.jsonForm.fields[0]);
+    // console.log('selectValue', this.jsonForm.fields[0]);
   }
 
   formSubmit(form:any){
-    console.log( 'submit form', form)
-    this.jsonForm.fields[0].Name = form.value.Name
-    console.log( 'submit form',this.jsonForm.fields[0] )
+    console.log('Submitted Form', form.value)
+    console.log('keys Form')
+
+    console.log( 'before',this.jsonForm);
+    this.jsonForm.fields.forEach((item:any) => { item['value'] = form.value[item.id] });
+    console.log('after', this.jsonForm);
+
+    // console.log( 'submit form', form.value)
+    // // this.jsonForm.fields[0].Name = form.value.Name
+    // console.log( 'submit form',this.jsonForm.fields[0] )
 
   }
 
